@@ -33,3 +33,30 @@ train_data ['bedroom_ratio'] = train_data['Tot_Bedrooms'] / train_data['Tot_Room
     
 plt.figure(figsize=(15,8))
 sns.heatmap(train_data.corr(), annot=True, cmap="YlGnBu")
+
+from sklearn.linear_model import LinearRegression 
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+x_train, y_train = train_data.drop(['Median_House_Value'], axis=1), train_data['Median_House_Value']
+x_train_s = scaler.fit_transform(x_train)
+
+reg = LinearRegression()
+
+reg.fit(x_train_s, y_train)
+LinearRegression()
+
+test_data = x_test.join(y_test)
+
+test_data ['Tot_Rooms'] = np.log(test_data['Tot_Rooms'] + 1)
+test_data ['Tot_Bedrooms'] = np.log(test_data['Tot_Bedrooms'] + 1)
+test_data ['Population'] = np.log(test_data['Population'] + 1)
+test_data ['Households'] = np.log(test_data['Households'] + 1)
+
+test_data ['bedroom_ratio'] = test_data['Tot_Bedrooms'] / test_data['Tot_Rooms']
+test_data ['households_rooms'] = test_data['Tot_Rooms'] / test_data['Households']
+
+x_test,y_test = test_data.drop(['Median_House_Value'], axis = 1), test_data['Median_House_Value']
+x_test_s = scaler.transform(x_test)
+reg.score(x_test_s,y_test)
