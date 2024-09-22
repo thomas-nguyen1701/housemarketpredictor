@@ -16,10 +16,20 @@ x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.2)
 
 
 train_data = x_train.join(y_train)
-train_data = hst(figsize=(15,8))
 
 plt.figure(figsize=(15,8))
 sns.heatmap(train_data.corr(), annot=True, cmap="YlGnBu")
 
+train_data ['Tot_Rooms'] = np.log(train_data['Tot_Rooms'] + 1)
+train_data ['Tot_Bedrooms'] = np.log(train_data['Tot_Bedrooms'] + 1)
+train_data ['Population'] = np.log(train_data['Population'] + 1)
+train_data ['Households'] = np.log(train_data['Households'] + 1)
 
+train_data.hist(figsize=(15,8))
 
+train_data ['bedroom_ratio'] = train_data['Tot_Bedrooms'] / train_data['Tot_Rooms']
+train_data ['households_rooms'] = train_data['Tot_Rooms'] / train_data['Households']
+train_data ['bedroom_ratio'] = train_data['Tot_Bedrooms'] / train_data['Tot_Rooms']\
+    
+plt.figure(figsize=(15,8))
+sns.heatmap(train_data.corr(), annot=True, cmap="YlGnBu")
