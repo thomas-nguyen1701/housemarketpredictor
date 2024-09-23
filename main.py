@@ -60,3 +60,9 @@ test_data ['households_rooms'] = test_data['Tot_Rooms'] / test_data['Households'
 x_test,y_test = test_data.drop(['Median_House_Value'], axis = 1), test_data['Median_House_Value']
 x_test_s = scaler.transform(x_test)
 reg.score(x_test_s,y_test)
+
+from sklearn.ensemble import RandomForestRegressor
+
+forest = RandomForestRegressor()
+forest.fit(x_train, y_train)
+forest.score(x_test, y_test)
