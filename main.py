@@ -66,3 +66,20 @@ from sklearn.ensemble import RandomForestRegressor
 forest = RandomForestRegressor()
 forest.fit(x_train, y_train)
 forest.score(x_test, y_test)
+
+from sklearn.model_selection import GridSearchCV
+
+forest = RandomForestRegressor()
+
+param_grid = {
+    "n_estimators": [30, 50, 125],
+    "max_features": [4, 8, 16],
+    "min_samples_split": [2, 4]
+}
+
+grid_search = GridSearchCV(forest, param_grid, cv= 5, scoring= "neg_mean_squared_error", return_train_score=True)
+
+grid_search.fit(x_train_s, y_train)
+
+
+
