@@ -72,7 +72,8 @@ from sklearn.model_selection import GridSearchCV
 forest = RandomForestRegressor()
 param_grid = {
         "n_estimators": [100, 200, 300],        
-        "max_features": [4, 6, 8, 12],
+        "min_samples_split": [2, 4],
+        "max_depth":[None, 4, 8]
         }
 
 grid_search = GridSearchCV(forest, param_grid, cv=5,
@@ -80,5 +81,6 @@ grid_search = GridSearchCV(forest, param_grid, cv=5,
                 return_train_score=True) 
 
 grid_search.fit(x_train_s, y_train)
-
+grid_search.best_estimator_
+grid_search.best_estimator.score(x_test_s, y_test)
 
